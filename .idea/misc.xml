@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/MVVMBasics/app/src/main/res/drawable/a_button_4.xml" value="0.112" />
+        <entry key="..\:/MVVMBasics/app/src/main/res/drawable/bg_back1.xml" value="0.112" />
+        <entry key="..\:/MVVMBasics/app/src/main/res/drawable/ui.xml" value="0.112" />
+        <entry key="..\:/MVVMBasics/app/src/main/res/layout/activity_register.xml" value="0.12" />
+        <entry key="..\:/Rajkamal/MVVMFir/app/src/main/res/layout/activity_login.xml" value="0.1875" />
+        <entry key="..\:/Rajkamal/MVVMFir/app/src/main/res/layout/activity_main.xml" value="0.1734375" />
+        <entry key="..\:/Rajkamal/MVVMFir/app/src/main/res/layout/activity_register.xml" value="0.1875" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
