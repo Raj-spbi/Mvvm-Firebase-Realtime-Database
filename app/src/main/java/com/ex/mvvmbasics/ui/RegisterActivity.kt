@@ -8,33 +8,46 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.coroutineScope
 import com.ex.mvvmbasics.RegisterRequest
 import com.ex.mvvmbasics.data.repo.AuthViewModel
 import com.ex.mvvmbasics.data.repo.RegisterActivityViewModelFactory
 import com.ex.mvvmbasics.data.repo.UserRepository
 import com.ex.mvvmbasics.databinding.ActivityRegisterBinding
 import com.ex.mvvmbasics.utils.NetworkResult
+import com.ex.mvvmbasics.utils.UserDetails
 
 class RegisterActivity : AppCompatActivity() {
     private var _binding: ActivityRegisterBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var authViewModel: AuthViewModel
-
-
     var _context: Activity? = null
     private val context get() = _context
-//    val authViewModel: AuthViewModel by viewModels()
 
-    /*   _binding = FragmentNotrBinding.inflate(inflater, container, false)
-        return binding.root*/
+    lateinit var userDetails: UserDetails
 
+    override fun onStart() {
+        super.onStart()
+
+        lifecycle.coroutineScope.launchWhenCreated {
+            userDetails.getUserName().collect {
+                if (!it.isNullOrEmpty()) {
+                    val intent = Intent(context, MainActivity::class.java);
+                    startActivity(intent)
+                    finish()
+                }
+            }
+
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         _context = this
+        userDetails = UserDetails(context = context!!)
+
         authViewModel =
             ViewModelProvider(this, RegisterActivityViewModelFactory(UserRepository())).get(
                 AuthViewModel::class.java

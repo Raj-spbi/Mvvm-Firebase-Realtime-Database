@@ -73,4 +73,28 @@ class UserRepository {
                 _loginResponseLiveData.postValue(NetworkResult.Error("Something went Wrong"))
             }
     }
+
+
+    /*    private val _readResponseLiveData = MutableLiveData<NetworkResult<RegisterRequest>>()
+        val readResponseLiveData: LiveData<NetworkResult<RegisterRequest>>
+            get() = _readResponseLiveData*/
+    private val _readResponseLiveData = MutableLiveData<NetworkResult<List<RegisterRequest>>>()
+    val readResponseLiveData get() = _readResponseLiveData
+    suspend fun readDataFromFirebase() {
+        _readResponseLiveData.postValue(NetworkResult.Loading())
+        database.child("RegisteredUsers").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val list: MutableList<RegisterRequest> = mutableListOf<RegisterRequest>()
+//                val loginResponse = snapshot.getValue<RegisterRequest>()
+                for (snap in snapshot.children) {
+                    list.add(snap.getValue<RegisterRequest>()!!)
+                }
+                _readResponseLiveData.postValue(NetworkResult.Success(list!!))
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                _loginResponseLiveData.postValue(NetworkResult.Error("Failed to read value"))
+            }
+        })
+    }
 }

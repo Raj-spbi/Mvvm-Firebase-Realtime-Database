@@ -81,4 +81,14 @@ class AuthViewModel(
 //        }
 //    }
 
+    val readLiveData: LiveData<NetworkResult<List<RegisterRequest>>>
+        get() = userRepository.readResponseLiveData
+
+    fun readAllUsers() {
+        viewModelScope.launch {
+            userRepository.readDataFromFirebase()
+        }
+    }
+
+
 }
